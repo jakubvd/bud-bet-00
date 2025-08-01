@@ -61,8 +61,8 @@
 
   background: linear-gradient(to bottom,
     #eee 0%,
-    #f7f3f3 40%,  /* intermediate soft fade */
-    #faf6f6 100%);
+    #f6f3f3 40%,  /* intermediate soft fade */
+    #f7f7f7 100%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
