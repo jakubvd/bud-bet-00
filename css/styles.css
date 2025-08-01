@@ -1,0 +1,73 @@
+/* 
+  CSS Styles for the website
+  This file contains global styles, typography, and layout adjustments.
+*/
+
+ /* Font smoothing for better text rendering across browsers */
+* {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -o-font-smoothing: antialiased;
+}
+
+/* 
+  High-end premium fade overlay for left and bottom edges only.
+  Applied via pseudo-element ::before on video and overlay elements.
+  Uses smooth multi-stop gradient to blend from background color to transparent.
+  Does NOT affect positioning or layout.
+*/
+.hero-home_video::before,
+.hero-home_video_overlay::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+
+  background:
+    linear-gradient(to right,
+      var(--background-color--main) 0%,
+      rgba(238, 238, 238, 0.98) 4%,
+      rgba(238, 238, 238, 0.85) 10%,
+      rgba(238, 238, 238, 0.6) 20%,
+      rgba(238, 238, 238, 0.3) 30%,
+      rgba(238, 238, 238, 0.15) 40%,
+      rgba(238, 238, 238, 0) 50%),
+    linear-gradient(to top,
+      var(--background-color--main) 0%,
+      rgba(238, 238, 238, 0.6) 10%,
+      rgba(238, 238, 238, 0.3) 20%,
+      rgba(238, 238, 238, 0) 30%);
+  background-repeat: no-repeat;
+  background-position: left bottom;
+  background-size: 50% 100%, 100% 30%;
+
+  -webkit-background-clip: padding-box;
+  will-change: opacity;
+
+  backface-visibility: hidden; /* GPU render */
+  transform: translateZ(0);    /* GPU render */
+  filter: blur(0.5px);         /* Slight blur to soften edges */
+}
+
+.section_home-oferta::before {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 80px; /* Height of the fade effect - adjust as needed */
+  z-index: 10;
+
+  /* Gradient fade from the base color (#eee) to a lighter #faf6f6 */
+  background: linear-gradient(to bottom,
+    #eee 0%,
+    #f7f3f3 40%,  /* intermediate soft fade */
+    #faf6f6 100%);
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+}
