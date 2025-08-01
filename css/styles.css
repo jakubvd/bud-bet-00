@@ -11,7 +11,7 @@
 }
 
 /* 
-  High-end premium fade overlay for left and bottom edges only on hero video.
+  High-end premium fade overlay for left and bottom edges only.
   Applied via pseudo-element ::before on video and overlay elements.
   Uses smooth multi-stop gradient to blend from background color to transparent.
   Does NOT affect positioning or layout.
@@ -55,16 +55,9 @@
 
 /* 
   Top fade overlay for .section_home-oferta section
-  Starts from background of hero section (#eee)
-  Fades smoothly into the section's own background (#faf6f6)
-  Applied on the ::before pseudo-element at the top edge.
+  Gradient fade from the base color (#eee) to a lighter #faf6f6
+  Creates smooth transition at top edge of the oferta section to match hero background.
 */
-.section_home-oferta {
-  position: relative; /* Required for positioning the pseudo-element */
-  background-color: var(--section-oferta-bg, #faf6f6); /* Your section bg var or fallback */
-  overflow: visible; /* Ensure fade can show properly */
-}
-
 .section_home-oferta::before {
   content: "";
   pointer-events: none;
@@ -72,20 +65,13 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 80px; /* Adjust fade height to desired effect */
+  height: 80px; /* Height of the fade effect - adjust as needed */
   z-index: 10;
 
   background: linear-gradient(to bottom,
-    #eee 0%,      /* Hero background color */
-    #f1efef 40%,  /* Smooth mid transition */
-    var(--section-oferta-bg, #faf6f6) 100%); /* Oferta section bg */
+    #eee 0%,
+    #f7f3f3 40%,  /* intermediate soft fade */
+    #faf6f6 100%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
-
-  -webkit-background-clip: padding-box;
-  will-change: opacity;
-
-  backface-visibility: hidden;
-  transform: translateZ(0);
-  filter: blur(0.5px); /* Optional blur to soften */
 }
