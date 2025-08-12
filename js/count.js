@@ -1,55 +1,70 @@
+
 (function () {
-  // Skip animation for reduced motion users
+  // Respect reduced motion
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   if (reduceMotion) return;
 
-  function easeOutCubic(t) { return 1 - Math.pow(1 - t, 3); }
+  // Stronger ease-out that noticeably slows near the end
+  function easeOutQuint(t) { return 1 - Math.pow(1 - t, 5); }
+
+  /**
+   * Format a number without separators and left‑pad with zeros to a fixed width
+   * to prevent layout shift while counting (keeps width of "00", "0000", etc.).
+   */
+  function formatPaddedNumber(value, decimals, padLength) {
+    if (decimals > 0) {
+      // For this project we expect integers; keep support just in case
+      const fixed = value.toFixed(decimals);
+      const [intPart, decPart] = fixed.split('.');
+      const padded = intPart.padStart(padLength, '0');
+      return decPart ? `${padded}.${decPart}` : padded;
+    }
+    const intVal = Math.round(value);
+    return String(intVal).padStart(padLength, '0');
+  }
 
   function animateCount(el) {
     const target = parseFloat(el.dataset.target || '0');
-    const duration = parseInt(el.dataset.duration || '1200', 10);
-    const prefix = el.dataset.prefix || '';
-    const suffix = el.dataset.suffix || '';
-    const format = el.dataset.format || 'none';
+    const duration = parseInt(el.dataset.duration || '4000', 10); // default: 4s
     const decimals = parseInt(el.dataset.decimals || '0', 10);
+
+    // Determine pad length from current text (e.g., "00", "0000") or fallback to target length
+    const initialDigits = (el.textContent.match(/\d/g) || []).length;
+    const padLength = initialDigits || String(Math.floor(target)).length || 1;
 
     let startTime;
 
-    function formatNumber(val) {
-      if (format === 'space') {
-        return val.toFixed(decimals).replace(/\B(?=(\d{3})+(?!\d))/g, ' ');
-      }
-      if (format === 'comma') {
-        return val.toLocaleString(undefined, { minimumFractionDigits: decimals, maximumFractionDigits: decimals });
-      }
-      return decimals > 0 ? val.toFixed(decimals) : Math.round(val);
-    }
-
-    function frame(time) {
-      if (!startTime) startTime = time;
-      const progress = Math.min((time - startTime) / duration, 1);
-      const eased = easeOutCubic(progress);
-      const value = target * eased;
-      el.textContent = prefix + formatNumber(value) + suffix;
-      if (progress < 1) {
+    function frame(now) {
+      if (!startTime) startTime = now;
+      const t = Math.min(1, (now - startTime) / duration);
+      const eased = easeOutQuint(t);
+      const current = target * eased;
+      el.textContent = formatPaddedNumber(current, decimals, padLength);
+      if (t < 1) {
         requestAnimationFrame(frame);
       } else {
-        el.textContent = prefix + formatNumber(target) + suffix;
+        // Snap exactly
+        el.textContent = formatPaddedNumber(target, decimals, padLength);
       }
     }
 
     requestAnimationFrame(frame);
   }
 
+  // Observe and run once when visible
   const counters = document.querySelectorAll('[data-counter]');
-  const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        animateCount(entry.target);
-        observer.unobserve(entry.target);
-      }
-    });
-  }, { threshold: 0.4 });
+  if (!counters.length) return;
 
-  counters.forEach(el => observer.observe(el));
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target;
+      if (el.dataset.done === 'true') { io.unobserve(el); return; }
+      animateCount(el);
+      el.dataset.done = 'true';
+      io.unobserve(el);
+    });
+  }, { threshold: 0.35, rootMargin: '0px 0px -10% 0px' });
+
+  counters.forEach((el) => io.observe(el));
 })();

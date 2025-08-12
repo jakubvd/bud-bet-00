@@ -71,3 +71,9 @@
 .section_home-oferta {
   position: relative;
 }
+
+/* Numeric values in stats should use tabular figures for alignment */
+.stat-value {
+  font-variant-numeric: tabular-nums;
+  -webkit-font-smoothing: antialiased;
+}
