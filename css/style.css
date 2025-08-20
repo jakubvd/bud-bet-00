@@ -23,16 +23,18 @@
   z-index: 10;
 
   background:
+    /* Left edge fade using the new main color #f5f6f9 */
     linear-gradient(to right,
-      var(--background-color--main) 0%,
+      #f5f6f9 0%,
       rgba(245, 246, 249, 0.98) 4%,
       rgba(245, 246, 249, 0.85) 10%,
       rgba(245, 246, 249, 0.6) 20%,
       rgba(245, 246, 249, 0.3) 30%,
       rgba(245, 246, 249, 0.15) 40%,
       rgba(245, 246, 249, 0) 50%),
+    /* Bottom edge fade using the new main color #f5f6f9 */
     linear-gradient(to top,
-      var(--background-color--main) 0%,
+      #f5f6f9 0%,
       rgba(245, 246, 249, 0.6) 10%,
       rgba(245, 246, 249, 0.3) 20%,
       rgba(245, 246, 249, 0) 30%);
@@ -48,25 +50,6 @@
   filter: blur(0.5px);         /* Slight blur to soften edges */
 }
 
-/* Top fade overlay for .section_home-oferta (new main color -> oferta bg) */
-.section_home-oferta { position: relative; }
-.section_home-oferta::before {
-  content: "";
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 80px; /* Adjust height for fade effect */
-  z-index: 10;
-  background: linear-gradient(to bottom,
-    #f5f6f9 0%,
-    #f7f8fb 40%, /* soft mid step */
-    #faf6f6 100%);
-  background-repeat: no-repeat;
-  background-size: 100% 100%;
-}
-
 /* Fade overlay for .section_home-oferta top edge */
 .section_home-oferta::before {
   content: "";
@@ -79,9 +62,9 @@
   z-index: 10;
 
   background: linear-gradient(to bottom,
-    #eee 0%,
-    #f6f3f3 40%,  /* intermediate soft fade */
-    #f7f7f7 100%);
+    #f5f6f9 0%,
+    rgba(245, 246, 249, 0.6) 40%, /* soft mid step with new main color */
+    #faf6f6 100%);
   background-repeat: no-repeat;
   background-size: 100% 100%;
 }
