@@ -23,15 +23,15 @@
   z-index: 10;
 
   background:
-    /* Left edge fade using the new main color #f5f6f9 */
+    /* Left edge fade using the HERO background #f3f5f8 */
     linear-gradient(to right,
-      #f5f6f9 0%,
-      rgba(245, 246, 249, 0.98) 4%,
-      rgba(245, 246, 249, 0.85) 10%,
-      rgba(245, 246, 249, 0.6) 20%,
-      rgba(245, 246, 249, 0.3) 30%,
-      rgba(245, 246, 249, 0.15) 40%,
-      rgba(245, 246, 249, 0) 50%),
+      #f3f5f8 0%,
+      rgba(243, 245, 248, 0.98) 4%,
+      rgba(243, 245, 248, 0.85) 10%,
+      rgba(243, 245, 248, 0.6) 20%,
+      rgba(243, 245, 248, 0.3) 30%,
+      rgba(243, 245, 248, 0.15) 40%,
+      rgba(243, 245, 248, 0) 50%),
     /* Bottom edge fade using the HERO background #f3f5f8 */
     linear-gradient(to top,
       #f3f5f8 0%,
