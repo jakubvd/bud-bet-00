@@ -1,36 +1,40 @@
 document.addEventListener("DOMContentLoaded", () => {
-  const accordions = document.querySelectorAll(".do-pob-pobierz_accordion");
+  const accordionWrappers = document.querySelectorAll(".do-pob-pobierz_accordion");
 
-  accordions.forEach((el) => {
+  accordionWrappers.forEach((wrapper) => {
+    const question = wrapper.querySelector(".do-pob-pobierz_question");
+    if (!question) return;
+
     // Ustawienie początkowego stylu
-    el.style.transition = "color 0.3s ease-in-out";
-    el.style.color = "var(--text--dark-rd)";
+    question.style.transition = "color 0.3s ease-in-out";
+    question.style.color = "var(--text--dark-rd)";
 
     let isHovered = false;
 
     // Hover ON
-    el.addEventListener("mouseenter", () => {
+    wrapper.addEventListener("mouseenter", () => {
       isHovered = true;
-      el.style.color = "var(--text--dark-st)";
+      question.style.color = "var(--text--dark-st)";
     });
 
     // Hover OFF
-    el.addEventListener("mouseleave", () => {
+    wrapper.addEventListener("mouseleave", () => {
       isHovered = false;
-      el.style.color = "var(--text--dark-rd)";
+      question.style.color = "var(--text--dark-rd)";
     });
 
-    // Smart watchdog: co 100ms sprawdza czy Webflow wyczyścił style
+    // Watcher: sprawdza co 100ms, czy Webflow nadpisał kolor
     setInterval(() => {
-      const currentColor = getComputedStyle(el).color;
-      const correctColor = getComputedStyle(document.documentElement)
-        .getPropertyValue(isHovered ? '--text--dark-st' : '--text--dark-rd')
+      const currentColor = getComputedStyle(question).color;
+      const expectedVar = isHovered ? '--text--dark-st' : '--text--dark-rd';
+      const expectedColor = getComputedStyle(document.documentElement)
+        .getPropertyValue(expectedVar)
         .trim();
 
-      // Jeśli kolory się różnią – Webflow coś nadpisał
-      if (!currentColor.includes(correctColor)) {
-        el.style.color = `var(${isHovered ? '--text--dark-st' : '--text--dark-rd'})`;
+      // Jeśli obecny kolor nie zawiera oczekiwanego — przywróć
+      if (!currentColor.includes(expectedColor)) {
+        question.style.color = `var(${expectedVar})`;
       }
-    }, 100); // co 100ms — lekko, ale skutecznie
+    }, 100);
   });
 });
