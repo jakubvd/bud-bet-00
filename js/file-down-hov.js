@@ -1,33 +1,33 @@
-  document.addEventListener("DOMContentLoaded", function () {
-    const elements = document.querySelectorAll('.do-pob-pobierz_accordion');
+document.addEventListener("DOMContentLoaded", () => {
+    const accordions = document.querySelectorAll(".do-pob-pobierz_accordion");
 
-    elements.forEach(el => {
-      // 1. Ustaw transition tylko raz
-      el.style.transition = 'color 0.3s ease-in-out';
+    accordions.forEach(el => {
+      // Ustaw początkowy stan koloru + płynne przejście
+      el.style.transition = "color 0.3s ease-in-out";
+      el.style.color = "var(--text--dark-rd)";
+      el.setAttribute("data-hovered", "false");
 
-      // 2. Obsługa "symulowanego hovera" przez data-state
-      el.addEventListener('mouseenter', () => {
-        el.setAttribute('data-state', 'hover');
-        el.style.color = 'var(--text--dark-st)';
+      // Hover ON
+      el.addEventListener("mouseenter", () => {
+        el.setAttribute("data-hovered", "true");
+        el.style.color = "var(--text--dark-st)";
       });
 
-      el.addEventListener('mouseleave', () => {
-        el.setAttribute('data-state', 'normal');
-        el.style.color = 'var(--text--dark-rd)';
+      // Hover OFF
+      el.addEventListener("mouseleave", () => {
+        el.setAttribute("data-hovered", "false");
+        el.style.color = "var(--text--dark-rd)";
       });
 
-      // 3. MutationObserver – obserwuj zmiany Webflow (np. przy otwarciu FAQ)
+      // Obserwator reagujący na zmiany stylu (np. po animacji Webflow)
       const observer = new MutationObserver(() => {
-        // Jeśli jesteśmy w stanie "hover", przywróć kolor
-        if (el.getAttribute('data-state') === 'hover') {
-          el.style.color = 'var(--text--dark-st)';
-        } else {
-          el.style.color = 'var(--text--dark-rd)';
-        }
-        // Przywróć transition po zmianach
-        el.style.transition = 'color 0.3s ease-in-out';
+        const isHovered = el.getAttribute("data-hovered") === "true";
+        el.style.color = isHovered ? "var(--text--dark-st)" : "var(--text--dark-rd)";
       });
 
-      observer.observe(el, { attributes: true, attributeFilter: ['style', 'class'] });
+      observer.observe(el, {
+        attributes: true,
+        attributeFilter: ["style", "class", "data-w-id"],
+      });
     });
   });
