@@ -1,24 +1,33 @@
   document.addEventListener("DOMContentLoaded", function () {
-    const accordions = document.querySelectorAll('.do-pob-pobierz_accordion');
+    const elements = document.querySelectorAll('.do-pob-pobierz_accordion');
 
-    accordions.forEach(el => {
-      // reset style to allow JS to override any inline Webflow style
+    elements.forEach(el => {
+      // 1. Ustaw transition tylko raz
       el.style.transition = 'color 0.3s ease-in-out';
 
+      // 2. Obsługa "symulowanego hovera" przez data-state
       el.addEventListener('mouseenter', () => {
+        el.setAttribute('data-state', 'hover');
         el.style.color = 'var(--text--dark-st)';
       });
 
       el.addEventListener('mouseleave', () => {
+        el.setAttribute('data-state', 'normal');
         el.style.color = 'var(--text--dark-rd)';
       });
 
-      // Observer to detect DOM changes caused by Webflow interactions
+      // 3. MutationObserver – obserwuj zmiany Webflow (np. przy otwarciu FAQ)
       const observer = new MutationObserver(() => {
-        // Reset style again in case Webflow animation changes it
+        // Jeśli jesteśmy w stanie "hover", przywróć kolor
+        if (el.getAttribute('data-state') === 'hover') {
+          el.style.color = 'var(--text--dark-st)';
+        } else {
+          el.style.color = 'var(--text--dark-rd)';
+        }
+        // Przywróć transition po zmianach
         el.style.transition = 'color 0.3s ease-in-out';
       });
 
-      observer.observe(el, { attributes: true, attributeFilter: ['style'] });
+      observer.observe(el, { attributes: true, attributeFilter: ['style', 'class'] });
     });
   });
