@@ -11,7 +11,7 @@
   Uses smooth multi-stop gradient to blend from background color to transparent.
   Does NOT affect positioning or layout.
 */
-.hero-home_video::before,
+/*.hero-home_video::before,
 .hero-home_video_overlay::before {
   content: "";
   pointer-events: none;
@@ -49,6 +49,7 @@
   transform: translateZ(0);    /* GPU render */
   filter: blur(0.5px);         /* Slight blur to soften edges */
 }
+
 
 /* Fade overlay for .section_home-oferta top edge */
 .section_home-oferta::before {
