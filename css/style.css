@@ -40,3 +40,17 @@
     border-bottom-color: var(--headings--dark-st);
   }
 }
+
+/* Base state: bottom border is transparent for menu buttons */
+.button.is-tetiary.is-menu {
+  border-bottom: 1px solid var(--_primitives---opacity--transparent, transparent);
+  transition: border-bottom-color 500ms cubic-bezier(.22, .61, .36, 1);
+}
+
+/* Desktop only: applies on devices with hover + fine pointer and min width 992px */
+@media (hover: hover) and (pointer: fine) and (min-width: 992px) {
+  .button.is-tetiary.is-menu:hover,
+  .button.is-tetiary.is-menu:focus-visible {
+    border-bottom-color: var(--headings--dark-st);
+  }
+}
