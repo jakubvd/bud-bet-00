@@ -22,6 +22,6 @@
   /* Hover/Focus: only the child of the hovered parent will animate */
   .navbar_product-item-link:hover .text-mega-menu,
   .navbar_product-item-link:focus-visible .text-mega-menu {
-    border-bottom-color: var(--outline--gray-1);
+    border-bottom-color: var(--headings--dark-st);
   }
 }
