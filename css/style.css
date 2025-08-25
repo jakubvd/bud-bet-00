@@ -54,3 +54,18 @@
     border-bottom-color: var(--headings--dark-st);
   }
 }
+
+/* Base state: bottom border is transparent to avoid layout shift */
+.text-footer-link {
+  border-bottom: 1px solid var(--_primitives---opacity--transparent, transparent);
+  transition: border-bottom-color 500ms cubic-bezier(.22, .61, .36, 1);
+}
+
+/* Desktop only: applies on devices with hover + fine pointer and min width 992px */
+@media (hover: hover) and (pointer: fine) and (min-width: 992px) {
+  /* Hover/Focus: only the child of the hovered parent will animate */
+  .footer_link:hover .text-footer-link,
+  .footer_link:focus-visible .text-footer-link {
+    border-bottom-color: var(--headings--dark-st);
+  }
+}
