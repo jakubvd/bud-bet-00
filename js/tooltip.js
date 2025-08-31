@@ -3,17 +3,15 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.matchMedia('(hover: hover)').matches) {
     const folders = document.querySelectorAll('.hover-tooltip-folder');
 
-    // Use sessionStorage to track if tooltip has been shown this visit
-    let tooltipShown = sessionStorage.getItem('tooltipShownGlobal') === 'true';
+    // Check if tooltip was already shown in this session
+    const tooltipShownGlobal = sessionStorage.getItem('tooltipShownOnce') === 'true';
 
     folders.forEach((folder) => {
       const tooltip = folder.querySelector('.tooltip-tag-wrap');
 
-      // Show tooltip on first hover only if not hidden
+      // Show tooltip on hover only if not already shown globally and this folder is not hidden
       folder.addEventListener('mouseenter', () => {
-        tooltipShown = sessionStorage.getItem('tooltipShownGlobal') === 'true';
-
-        if (!tooltipShown && tooltip && !folder.classList.contains('tooltip-hidden')) {
+        if (!tooltipShownGlobal && !folder.classList.contains('tooltip-hidden')) {
           tooltip.style.opacity = '1';
           tooltip.style.visibility = 'visible';
           tooltip.style.pointerEvents = 'auto';
@@ -21,9 +19,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       folder.addEventListener('mouseleave', () => {
-        tooltipShown = sessionStorage.getItem('tooltipShownGlobal') === 'true';
-
-        if (!tooltipShown && tooltip && !folder.classList.contains('tooltip-hidden')) {
+        if (!tooltipShownGlobal && !folder.classList.contains('tooltip-hidden')) {
           tooltip.style.opacity = '0';
           tooltip.style.visibility = 'hidden';
           tooltip.style.pointerEvents = 'none';
@@ -31,22 +27,21 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       folder.addEventListener('click', () => {
-        if (!tooltipShown) {
+        if (!tooltipShownGlobal) {
           // Hide all tooltips globally
-          document.querySelectorAll('.tooltip-tag-wrap').forEach((t) => {
-            t.style.opacity = '0';
-            t.style.visibility = 'hidden';
-            t.style.pointerEvents = 'none';
+          document.querySelectorAll('.tooltip-tag-wrap').forEach((tooltipEl) => {
+            tooltipEl.style.opacity = '0';
+            tooltipEl.style.visibility = 'hidden';
+            tooltipEl.style.pointerEvents = 'none';
           });
 
-          // Prevent tooltips from showing again by marking all folders
-          document.querySelectorAll('.hover-tooltip-folder').forEach((f) => {
-            f.classList.add('tooltip-hidden');
+          // Prevent further tooltip display on any element
+          document.querySelectorAll('.hover-tooltip-folder').forEach((el) => {
+            el.classList.add('tooltip-hidden');
           });
 
-          // Update sessionStorage to block tooltips for rest of visit
-          tooltipShown = true;
-          sessionStorage.setItem('tooltipShownGlobal', 'true');
+          // Set global session flag
+          sessionStorage.setItem('tooltipShownOnce', 'true');
         }
       });
     });
