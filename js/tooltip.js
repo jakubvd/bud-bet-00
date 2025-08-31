@@ -1,29 +1,28 @@
-  document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', () => {
     const folders = document.querySelectorAll('.hover-tooltip-folder');
 
-    folders.forEach((folder) => {
-      // Domyślnie tooltip pokazuje się tylko 1 raz
-      let tooltipShown = false;
-      let tooltipDisabled = false;
+    let globalTooltipShown = false;
+    let globalTooltipDisabled = false;
 
+    folders.forEach((folder) => {
       const tooltip = folder.querySelector('.tooltip-tag-wrap');
 
       folder.addEventListener('mouseenter', () => {
-        if (!tooltipDisabled && !tooltipShown) {
+        if (!globalTooltipDisabled && !globalTooltipShown) {
           tooltip.style.display = 'block';
-          tooltipShown = true;
+          globalTooltipShown = true;
         }
       });
 
       folder.addEventListener('mouseleave', () => {
-        if (!tooltipDisabled) {
+        if (!globalTooltipDisabled) {
           tooltip.style.display = 'none';
         }
       });
 
       folder.addEventListener('click', () => {
         tooltip.style.display = 'none';
-        tooltipDisabled = true;
+        globalTooltipDisabled = true;
       });
     });
   });
