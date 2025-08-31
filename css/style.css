@@ -70,43 +70,47 @@
   }
 }
 
-/* Tooltip container must be relatively positioned */
+/* Tooltip container – relative to parent */
 .hover-tooltip-folder {
   position: relative;
   cursor: pointer;
 }
 
-/* Tooltip bubble wrapper – positioned to the left */
+/* Tooltip bubble wrapper – positioned to the left of the folder icon */
 .tooltip-tag-wrap {
   position: absolute;
   top: 120%;
-  left: 2.75rem; /* Adjustś horizontal distance from folder icon */
+  left: 2.75rem;
   transform: translateY(-50%);
-  display: block;
   opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
   z-index: 10;
 }
 
-/* Tooltip visible on hover */
+/* Show tooltip on hover */
 .hover-tooltip-folder:hover .tooltip-tag-wrap {
-  display: block;
   opacity: 1;
-  transition: opacity 0.5s ease-in-out;
+  visibility: visible;
+  pointer-events: auto;
 }
 
-/* Bubble styling – visual design */
+/* Tooltip style */
 .tooltip-tag {
   background: transparent;
   color: black;
-  padding: 0rem 0rem;
+  padding: 0 0;
   border-radius: 999px;
   font-size: 0.75rem;
   white-space: nowrap;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.025);
-  transition: opacity 0.5s ease-in-out;
+  transition: opacity 0.3s ease-in-out;
 }
 
-/* Optional: Hide on click — will be toggled via JS */
+/* Tooltip hidden by JS after first click */
 .tooltip-hidden .tooltip-tag-wrap {
-  display: none !important;
+  opacity: 0 !important;
+  visibility: hidden !important;
+  pointer-events: none !important;
 }
