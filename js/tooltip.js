@@ -1,28 +1,27 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const folders = document.querySelectorAll('.hover-tooltip-folder');
+  const folders = document.querySelectorAll('.hover-tooltip-folder');
 
-    let globalTooltipShown = false;
-    let globalTooltipDisabled = false;
+  // Sprawdzamy, czy użytkownik już widział tooltip w tej wizycie
+  const tooltipSeen = sessionStorage.getItem('tooltipShown') === 'true';
 
-    folders.forEach((folder) => {
-      const tooltip = folder.querySelector('.tooltip-tag-wrap');
+  folders.forEach((folder) => {
+    const tooltip = folder.querySelector('.tooltip-tag-wrap');
 
-      folder.addEventListener('mouseenter', () => {
-        if (!globalTooltipDisabled && !globalTooltipShown) {
-          tooltip.style.display = 'block';
-          globalTooltipShown = true;
-        }
-      });
+    folder.addEventListener('mouseenter', () => {
+      if (!sessionStorage.getItem('tooltipShown')) {
+        tooltip.style.display = 'block';
+      }
+    });
 
-      folder.addEventListener('mouseleave', () => {
-        if (!globalTooltipDisabled) {
-          tooltip.style.display = 'none';
-        }
-      });
-
-      folder.addEventListener('click', () => {
+    folder.addEventListener('mouseleave', () => {
+      if (!sessionStorage.getItem('tooltipShown')) {
         tooltip.style.display = 'none';
-        globalTooltipDisabled = true;
-      });
+      }
+    });
+
+    folder.addEventListener('click', () => {
+      tooltip.style.display = 'none';
+      sessionStorage.setItem('tooltipShown', 'true');
     });
   });
+});
