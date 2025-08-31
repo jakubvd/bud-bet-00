@@ -11,20 +11,28 @@ document.addEventListener('DOMContentLoaded', () => {
 
       // Show tooltip on first hover only
       folder.addEventListener('mouseenter', () => {
+        // Re-check sessionStorage in case another element triggered it
+        tooltipShown = sessionStorage.getItem('tooltipShownGlobal') === 'true';
         if (!tooltipShown && tooltip) {
           tooltip.style.display = 'block';
         }
       });
 
       folder.addEventListener('mouseleave', () => {
+        tooltipShown = sessionStorage.getItem('tooltipShownGlobal') === 'true';
         if (!tooltipShown && tooltip) {
           tooltip.style.display = 'none';
         }
       });
 
       folder.addEventListener('click', () => {
-        if (!tooltipShown && tooltip) {
-          tooltip.style.display = 'none';
+        if (!tooltipShown) {
+          // Hide tooltip on click and disable future tooltips
+          folders.forEach((f) => {
+            const t = f.querySelector('.tooltip-tag-wrap');
+            if (t) t.style.display = 'none';
+          });
+
           tooltipShown = true;
           sessionStorage.setItem('tooltipShownGlobal', 'true');
         }
