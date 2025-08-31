@@ -9,11 +9,11 @@ document.addEventListener('DOMContentLoaded', () => {
     folders.forEach((folder) => {
       const tooltip = folder.querySelector('.tooltip-tag-wrap');
 
-      // Show tooltip on first hover only
+      // Show tooltip on first hover only if not hidden
       folder.addEventListener('mouseenter', () => {
-        // Re-check sessionStorage in case another element triggered it
         tooltipShown = sessionStorage.getItem('tooltipShownGlobal') === 'true';
-        if (!tooltipShown && tooltip) {
+
+        if (!tooltipShown && tooltip && !folder.classList.contains('tooltip-hidden')) {
           tooltip.style.opacity = '1';
           tooltip.style.visibility = 'visible';
           tooltip.style.pointerEvents = 'auto';
@@ -22,7 +22,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
       folder.addEventListener('mouseleave', () => {
         tooltipShown = sessionStorage.getItem('tooltipShownGlobal') === 'true';
-        if (!tooltipShown && tooltip) {
+
+        if (!tooltipShown && tooltip && !folder.classList.contains('tooltip-hidden')) {
           tooltip.style.opacity = '0';
           tooltip.style.visibility = 'hidden';
           tooltip.style.pointerEvents = 'none';
@@ -38,7 +39,12 @@ document.addEventListener('DOMContentLoaded', () => {
             t.style.pointerEvents = 'none';
           });
 
-          // Update state and prevent future tooltips on hover
+          // Prevent tooltips from showing again by marking all folders
+          document.querySelectorAll('.hover-tooltip-folder').forEach((f) => {
+            f.classList.add('tooltip-hidden');
+          });
+
+          // Update sessionStorage to block tooltips for rest of visit
           tooltipShown = true;
           sessionStorage.setItem('tooltipShownGlobal', 'true');
         }
