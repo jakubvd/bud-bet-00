@@ -14,25 +14,31 @@ document.addEventListener('DOMContentLoaded', () => {
         // Re-check sessionStorage in case another element triggered it
         tooltipShown = sessionStorage.getItem('tooltipShownGlobal') === 'true';
         if (!tooltipShown && tooltip) {
-          tooltip.style.display = 'block';
+          tooltip.style.opacity = '1';
+          tooltip.style.visibility = 'visible';
+          tooltip.style.pointerEvents = 'auto';
         }
       });
 
       folder.addEventListener('mouseleave', () => {
         tooltipShown = sessionStorage.getItem('tooltipShownGlobal') === 'true';
         if (!tooltipShown && tooltip) {
-          tooltip.style.display = 'none';
+          tooltip.style.opacity = '0';
+          tooltip.style.visibility = 'hidden';
+          tooltip.style.pointerEvents = 'none';
         }
       });
 
       folder.addEventListener('click', () => {
         if (!tooltipShown) {
-          // Hide tooltip on click and disable future tooltips
-          folders.forEach((f) => {
-            const t = f.querySelector('.tooltip-tag-wrap');
-            if (t) t.style.display = 'none';
+          // Hide all tooltips globally
+          document.querySelectorAll('.tooltip-tag-wrap').forEach((t) => {
+            t.style.opacity = '0';
+            t.style.visibility = 'hidden';
+            t.style.pointerEvents = 'none';
           });
 
+          // Update state and prevent future tooltips on hover
           tooltipShown = true;
           sessionStorage.setItem('tooltipShownGlobal', 'true');
         }
