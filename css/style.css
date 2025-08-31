@@ -80,7 +80,7 @@
 .tooltip-tag-wrap {
   position: absolute;
   top: 120%;
-  left: 2.5rem; /* Adjust horizontal distance from folder icon */
+  left: 2.75rem; /* Adjustś horizontal distance from folder icon */
   transform: translateY(-50%);
   display: none;
   z-index: 10;
