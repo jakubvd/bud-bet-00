@@ -82,13 +82,16 @@
   top: 120%;
   left: 2.75rem; /* Adjustś horizontal distance from folder icon */
   transform: translateY(-50%);
-  display: none;
+  display: block;
+  opacity: 0;
   z-index: 10;
 }
 
 /* Tooltip visible on hover */
 .hover-tooltip-folder:hover .tooltip-tag-wrap {
   display: block;
+  opacity: 1;
+  transition: opacity 0.5s ease-in-out;
 }
 
 /* Bubble styling – visual design */
