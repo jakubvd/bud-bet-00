@@ -1,0 +1,11 @@
+/* Force hamburger button to show up to 1100px */
+@media screen and (max-width: 1100px) {
+  .navbar_menu-button.w-nav-button {
+    display: block !important; /* show hamburger */
+  }
+
+  /* And hide desktop menu in that range */
+  .navbar_menu.w-nav-menu {
+    display: none !important;
+  }
+}
