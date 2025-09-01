@@ -3,8 +3,8 @@ document.addEventListener('DOMContentLoaded', () => {
   if (window.matchMedia('(hover: hover)').matches) {
     const folders = document.querySelectorAll('.hover-tooltip-folder');
 
-    // Check if tooltip was already shown in this browser (localStorage)
-    const tooltipShownGlobal = localStorage.getItem('tooltipShownOnce') === 'true';
+    // Session-only control: resets on every page load
+    let tooltipShownGlobal = false;
 
     folders.forEach((folder) => {
       const tooltip = folder.querySelector('.tooltip-tag-wrap');
@@ -40,8 +40,8 @@ document.addEventListener('DOMContentLoaded', () => {
             el.classList.add('tooltip-hidden');
           });
 
-          // Set global flag in localStorage
-          localStorage.setItem('tooltipShownOnce', 'true');
+          // Update session-only flag
+          tooltipShownGlobal = true;
         }
       });
     });
