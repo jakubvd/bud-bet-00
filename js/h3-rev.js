@@ -11,15 +11,15 @@ document.addEventListener("DOMContentLoaded", function () {
       const split = new SplitText(heading, { type: "words" });
       
       // Hide all words initially
-      gsap.set(split.words, { opacity: 0, y: 80 });
+      gsap.set(split.words, { opacity: 0, y: 120 });
 
       // Create the GSAP animation
       gsap.to(split.words, {
         opacity: 1,
         y: 0,
-        duration: 1.1,
+        duration: 1.4,
         ease: "power2.out",
-        stagger: 0.1,
+        stagger: 0.15,
         scrollTrigger: {
           trigger: heading,
           start: "top 80%",
