@@ -7,14 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     // Ensure SplitText is available and the heading element exists
     if (typeof SplitText !== 'undefined' && heading) {
-      // Split text into lines (can also use 'words' or 'chars')
-      const split = new SplitText(heading, { type: "lines" });
+      // Split text into words (can also use 'lines' or 'chars')
+      const split = new SplitText(heading, { type: "words" });
       
-      // Hide all lines initially
-      gsap.set(split.lines, { opacity: 0, y: 40 });
+      // Hide all words initially
+      gsap.set(split.words, { opacity: 0, y: 80 });
 
       // Create the GSAP animation
-      gsap.to(split.lines, {
+      gsap.to(split.words, {
         opacity: 1,
         y: 0,
         duration: 1.1,
