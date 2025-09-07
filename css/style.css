@@ -30,7 +30,7 @@
   /* Hover/Focus: only the child of the hovered parent will animate */
   .navbar_product-item-link:hover .text-mega-menu,
   .navbar_product-item-link:focus-visible .text-mega-menu {
-    border-bottom-color: var(--headings--dark-st);
+    border-bottom-color: var(--icons--yellow-dark);
   }
 }
 
@@ -45,7 +45,7 @@
   /* Hover/Focus: only the child of the hovered parent will animate */
   .navbar_link-wrap:hover .text-navbar-link,
   .navbar_link-wrap:focus-visible .text-navbar-link {
-    border-bottom-color: var(--headings--dark-st);
+    border-bottom-color: var(--icons--yellow-dark);
   }
 }
 
@@ -59,7 +59,7 @@
 @media (hover: hover) and (pointer: fine) and (min-width: 992px) {
   .button.is-tetiary.is-menu:hover,
   .button.is-tetiary.is-menu:focus-visible {
-    border-bottom-color: var(--headings--dark-st);
+    border-bottom-color: var(--icons--yellow-dark);
   }
 }
 
@@ -74,7 +74,7 @@
   /* Hover/Focus: only the child of the hovered parent will animate */
   .footer_link:hover .text-footer-link,
   .footer_link:focus-visible .text-footer-link {
-    border-bottom-color: var(--headings--dark-st);
+    border-bottom-color: var(--icons--yellow-dark);
   }
 }
 
