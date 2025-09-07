@@ -5,6 +5,14 @@
   -o-font-smoothing: antialiased;
 }
 
+/* Disable tap highlight color on mobile browsers */
+* {
+    -webkit-tap-highlight-color: transparent;
+    -moz-tap-highlight-color: transparent;
+    -ms-tap-highlight-color: transparent;
+    -o-tap-highlight-color: transparent;
+}
+
 /* Numeric values in stats should use tabular figures for alignment */
 .stat-value {
   font-variant-numeric: tabular-nums;
