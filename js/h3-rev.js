@@ -17,12 +17,12 @@ document.addEventListener("DOMContentLoaded", function () {
       gsap.to(split.words, {
         opacity: 1,
         y: 0,
-        duration: 1.4,
+        duration: 1.1,
         ease: "power2.out",
-        stagger: 0.15,
+        stagger: 0.1,
         scrollTrigger: {
           trigger: heading,
-          start: "top 80%",
+          start: window.innerWidth <= 480 ? "top 95%" : "top 80%",
           toggleActions: "play none none none"
         }
       });
