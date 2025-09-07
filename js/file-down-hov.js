@@ -17,14 +17,12 @@ document.addEventListener("DOMContentLoaded", () => {
     wrapper.addEventListener("mouseenter", () => {
       isHovered = true;
       question.style.color = "var(--text--dark-st)";
-      question.style.borderBottom = "1px solid var(--icons--yellow-dark)";
     });
 
     // On mouse leave: reset color to default
     wrapper.addEventListener("mouseleave", () => {
       isHovered = false;
       question.style.color = "var(--text--dark-rd)";
-      question.style.borderBottom = "none";
     });
 
     // Safety check: reapply the correct color every 100ms
