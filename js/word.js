@@ -56,5 +56,5 @@
     });
   }
 
-  applyNbsp();
+  requestAnimationFrame(() => applyNbsp());
 })();
