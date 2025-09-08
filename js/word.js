@@ -52,5 +52,5 @@
     root.querySelectorAll("[data-nbsp]").forEach(el => walk(el));
   }
 
-  document.addEventListener("DOMContentLoaded", () => applyNbsp());
+  applyNbsp();
 })();
