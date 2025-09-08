@@ -49,7 +49,11 @@
   }
 
   function applyNbsp(root = document) {
-    root.querySelectorAll("[data-nbsp]").forEach(el => walk(el));
+    root.querySelectorAll("[data-nbsp]").forEach(el => {
+      el.style.visibility = "hidden"; // Temporarily hide to prevent layout shift
+      walk(el);
+      el.style.visibility = "visible"; // Reveal after nbsp processing
+    });
   }
 
   applyNbsp();
