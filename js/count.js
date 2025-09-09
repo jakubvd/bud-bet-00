@@ -1,4 +1,3 @@
-
 (function () {
   // Respect reduced motion
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
@@ -28,6 +27,25 @@
     const duration = parseInt(el.dataset.duration || '4000', 10); // default: 4s
     const decimals = parseInt(el.dataset.decimals || '0', 10);
 
+    const row = el.dataset.row || '';
+    let speedMultiplier = 1;
+
+    switch (row) {
+      case '2':
+        speedMultiplier = 0.4; // Slow down 2nd row (100 000)
+        break;
+      case '3':
+        speedMultiplier = 0.8;
+        break;
+      case '4':
+        speedMultiplier = 1.2;
+        break;
+      default:
+        speedMultiplier = 1; // row 1 and others stay at normal speed
+    }
+
+    const adjustedDuration = duration / speedMultiplier;
+
     // Determine pad length from current text (e.g., "00", "0000") or fallback to target length
     const initialDigits = (el.textContent.match(/\d/g) || []).length;
     const padLength = initialDigits || String(Math.floor(target)).length || 1;
@@ -36,7 +54,7 @@
 
     function frame(now) {
       if (!startTime) startTime = now;
-      const t = Math.min(1, (now - startTime) / duration);
+      const t = Math.min(1, (now - startTime) / adjustedDuration);
       const eased = easeOutQuint(t);
       const current = target * eased;
       el.textContent = formatPaddedNumber(current, decimals, padLength);
