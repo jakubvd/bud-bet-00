@@ -5,6 +5,19 @@
   -o-font-smoothing: antialiased;
 }
 
+/* Show stat values as fallback for users with JS disabled */
+.has-js .stat-value-noscript {
+  display: none !important;
+}
+
+html:not(.has-js) .stat-value {
+  display: none !important;
+}
+
+html:not(.has-js) .stat-value-noscript {
+  display: inline !important;
+}
+
 /* Disable tap highlight color on mobile browsers */
 * {
     -webkit-tap-highlight-color: transparent;
