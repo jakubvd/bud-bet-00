@@ -1,7 +1,15 @@
 (function () {
   // Respect reduced motion
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (reduceMotion) return;
+  if (reduceMotion) {
+    document.querySelectorAll('[data-counter]').forEach(el => {
+      const target = parseFloat(el.dataset.target || '0');
+      const decimals = parseInt(el.dataset.decimals || '0', 10);
+      const formatted = formatPaddedNumber(target, decimals, String(target).length);
+      el.textContent = formatted;
+    });
+    return;
+  }
 
   // Stronger ease-out that noticeably slows near the end
   function easeOutQuint(t) { return 1 - Math.pow(1 - t, 5); }
